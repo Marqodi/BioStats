@@ -1,49 +1,54 @@
 ---
 title: "Paper Summary"
-author: "Marqus Odisho"
+author: "Marqus Odisho & Sargon Yousefian"
 date: "`r Sys.Date()`"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+#install.packages("ggplot2")
+#install.packages("lme4")
+#install.packages("lmerTest")
+#install.packages("MuMIn")
+#install.packages("MASS")
+#install.packages("dplyr")
+#install.packages("tidyr")
+library(ggplot2)
+library(lme4)
+library(lmerTest)
+library(MuMIn)
+library(MASS)
+library(dplyr)
+library(tidyr)
 ```
 
+```{r assay 1 simulation}
+###Trait of Interest: Creating normally distributed female fly populations with average value corresponding to their average number of sexual interactions. Four populations corresponding to the 4 different combinations between female fly size and environment type. (small females in cages, small females in vials, large females in cages, large females in vials)
 
+# Sample Data (replace with your actual data)
+data <- data.frame(
+  Environment = factor(rep(c("Vial", "Cage"), each = 2), levels = c("Vial", "Cage")),
+  Size = factor(rep(c("Small", "Large"), 2), levels = c("Small", "Large")),
+  Mean = c(4, 10, 6, 5),
+  SD = c(1, 1, 1, 1)  # Standard deviation (replace with your actual values)
+)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+# Create the bar graph with error bars (Environment on x-axis)
+ggplot(data, aes(x = Environment, y = Mean, fill = Size)) + scale_y_continuous(breaks=c(0,2,4,6,8,10)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  geom_errorbar(aes(ymin = Mean - SD, ymax = Mean + SD), 
+                width = 0.2, position = position_dodge(0.9)) +
+  labs(
+    title = "Random Graph Nonsense",
+    x = "",
+    y = "Average Number of Sexual Interactions in a 1 Minute Period",
+    fill = " " 
+  ) +
+  theme_classic() +
+  theme(
+    legend.position = "bottom",
+  ) +
+  scale_fill_manual(values = c("#B6D0E2", "#F1E3D3"))  # Pastel blue and yellow
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
