@@ -1,4 +1,33 @@
+---
+title: "Lecture 2 Distribution"
+author: "Marqus Odisho"
+date: '`r Sys.Date()`'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Assignment:
+## What distribution are your data likely from?
+
+My data is likely from a beta distribution.  
+
+## Why do you think this?
+
+My reasoning for this is because when looking admixture, alpha and beta can be used as parameters for two different parental alleles, in my case, from different species.
+
+## Using the distribution that you've chosen, change the different parameters. What happens when you change the parameters for the distribution? Describe how the shape changes.
+
+As the parameters are reduced to a number below 1, the distribution begins to take on a u-shape with that shape being most prominent when both values are small. 
+If one of the parameters is larger than the other, the distribution skews in the direction of the larger number.
+As the parameters are increased to a number larger than 1, the distribution takes on a more n-shaped curve similar to a normal distribution. As the parameters are increased, the curve becomes wider.
+
+## Can you simulate data that looks like what you expect your data looks like? What are the parameters for that?
+
 ```{r Beta}
-## My chick example isn't working for me as well right now. But, something like distribution of admixed hybrids (from two populations) is well approximated by beta. So let's say we have two interbreeding populations, and we want to know what the proportion of species A is in each individual. Beta's great for that. 
-hist(rbeta(100, 5, 5))
-plot(density(rbeta(100, 5, 5)))
+### Beta Distribution
+hist(rbeta(1000, 0.5, 0.5))
+plot(density(rbeta(1000, 0.3, 0.3)))
+```
