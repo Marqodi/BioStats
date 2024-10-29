@@ -49,6 +49,6 @@ ggplot(data, aes(x = Environment, y = Mean, fill = Size)) + scale_y_continuous(b
   theme(
     legend.position = "bottom",
   ) +
-  scale_fill_manual(values = c("#B6D0E2", "#F1E3D3"))  # Pastel blue and yellow
+  scale_fill_manual(values = c("#B6D0E2", "#F1E3D3"))  # Pastel blue and yellow for the legend
 ```
 
