@@ -1,6 +1,10 @@
 ---
 title: "Paper Summary"
+<<<<<<< HEAD
 author: "Marqus Odisho & Sargon Yousefian"
+=======
+author: "Marqus Odisho & Sargon"
+>>>>>>> 235bb6a817df53fe47ab30742a4a00d1497e5b97
 date: "`r Sys.Date()`"
 output: html_document
 ---
