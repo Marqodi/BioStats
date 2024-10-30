@@ -7,13 +7,13 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-#install.packages("ggplot2")
-#install.packages("lme4")
-#install.packages("lmerTest")
-#install.packages("MuMIn")
-#install.packages("MASS")
-#install.packages("dplyr")
-#install.packages("tidyr")
+#install.packages('ggplot2')
+#install.packages('lme4')
+#install.packages('lmerTest')
+#install.packages('MuMIn')
+#install.packages('MASS')
+#install.packages('dplyr')
+#install.packages('tidyr')
 library(ggplot2)
 library(lme4)
 library(lmerTest)
@@ -28,49 +28,51 @@ library(tidyr)
 
 # Sample Data (replace with your actual data)
 data <- data.frame(
-  Environment = factor(rep(c("Vial", "Cage"), each = 2), levels = c("Vial", "Cage")),
-  Size = factor(rep(c("Small", "Large"), 2), levels = c("Small", "Large")),
+  Environment = factor(rep(c('Vial', 'Cage'), each = 2), levels = c('Vial', 'Cage')),
+  Size = factor(rep(c('Small', 'Large'), 2), levels = c('Small', 'Large')),
   Mean = c(4, 10, 6, 5),
   SD = c(1, 1, 1, 1)  # Standard deviation (replace with your actual values)
 )
 
 # Create the bar graph with error bars (Environment on x-axis)
-ggplot(data, aes(x = Environment, y = Mean, fill = Size)) + scale_y_continuous(breaks=c(0,2,4,6,8,10)) +
-  geom_bar(stat = "identity", position = "dodge") +
+ggplot(data, aes(x = Environment, y = Mean, fill = Size)) + scale_y_continuous(breaks=c(0, 2, 4, 6, 8, 10)) +
+  geom_bar(stat = 'identity', position = 'dodge') +
   geom_errorbar(aes(ymin = Mean - SD, ymax = Mean + SD), 
                 width = 0.2, position = position_dodge(0.9)) +
   labs(
     title = "Random Graph Nonsense",
-    x = "",
+    x = '',
     y = "Average Number of Sexual Interactions in a 1 Minute Period",
-    fill = " " 
+    fill = ' ' 
   ) +
   theme_classic() +
   theme(
-    legend.position = "bottom",
-    panel.border = element_rect(colour = "black", fill=NA)
+    legend.position = 'bottom',
+    panel.border = element_rect(colour = 'black', fill = NA)
   ) +
-  scale_fill_manual(values = c("#B6D0E2", "#F1E3D3"))  # Pastel blue and yellow for the legend
+  scale_fill_manual(values = c('#B6D0E2', '#F1E3D3'))  # Pastel blue and yellow for the legend
 ```
 
 ```{r Assay 1: Figure 1b. Simulation & Analysis}
-MeanFeeding_Small<-c(10,9)
-MeanFeeding_Large<-c(6.5,13.5)
-EnvironmentType<-c('Vial','Cage')
-x<-c(1,2)
+
+#Creating useful variables to create the plot for Figure 1b.
+MeanFeeding_Small<-c(10, 9)
+MeanFeeding_Large<-c(6.5, 13.5)
+EnvironmentType<-c('Vial', 'Cage')
+x <- c(1, 2)
 SD = c(1, 1, 1, 1)
 
-plot(MeanFeeding_Small, axes=FALSE, xlab= "Mating Arena", ylab="Average Number of Feedings Observed", ylim=c(4,16), pch=15, col="#B6D0E2", type='o', lwd=2, cex=1.5)
+plot(MeanFeeding_Small, axes=FALSE, xlab= "Mating Arena", ylab="Average Number of Feedings Observed", ylim = c(4, 16), pch = 15, col = '#B6D0E2', type = 'o', lwd = 2, cex = 1.5)
 axis(2)
-axis(1, at=seq_along(MeanFeeding_Small), labels = as.character(EnvironmentType), las=0)
-lines(c(1,2), MeanFeeding_Large, col="#F1E3D3", pch=17, type="o", lty = 2, lwd=2, cex=1.5)
+axis(1, at = seq_along(MeanFeeding_Small), labels = as.character(EnvironmentType), las = 0)
+lines(c(1, 2), MeanFeeding_Large, col='#F1E3D3', pch = 17, type = 'o', lty = 2, lwd = 2, cex = 1.5)
 
 # Vertical error bars the good ole fashion way
-arrows(x0=x, y0=MeanFeeding_Small-SD, x1=x, y1=MeanFeeding_Small+SD, code=3, angle=90, length=0.1)
-arrows(x0=x, y0=MeanFeeding_Large-SD, x1=x, y1=MeanFeeding_Large+SD, code=3, angle=90, length=0.1)
+arrows(x0 = x, y0 = MeanFeeding_Small - SD, x1 = x, y1 = MeanFeeding_Small + SD, code = 3, angle = 90, length = 0.1)
+arrows(x0 = x, y0 = MeanFeeding_Large - SD, x1 = x, y1 = MeanFeeding_Large + SD, code = 3, angle = 90, length = 0.1)
 
 # Creating a legend that labels the female size types with different colours - corresponds to the colours in the previous graph
-legend('topleft',inset=0.05,c("Small","Large"), lty=c(1,2), col=c("#B6D0E2","#F1E3D3"), lwd=2, title="Female Size")
+legend('topleft', inset = 0.05, c('Small', 'Large'), lty = c(1, 2), col =c ('#B6D0E2','#F1E3D3'), lwd = 2, title = "Female Size")
 
 # Turn plot outline into a box to make it more cutesy
 box()
