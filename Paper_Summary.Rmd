@@ -24,7 +24,7 @@ library(tidyr)
 ```
 
 ```{r Assay 1: Figure 1a. Simulation & Analysis}
-###Trait of Interest: Creating normally distributed female fly populations with average value corresponding to their average number of sexual interactions. Four populations corresponding to the 4 different combinations between female fly size and environment type. (small females in cages, small females in vials, large females in cages, large females in vials)
+# Trait of Interest: 
 
 # Sample Data (replace with your actual data)
 data <- data.frame(
@@ -40,13 +40,14 @@ ggplot(data, aes(x = Environment, y = Mean, fill = Size)) + scale_y_continuous(b
   geom_errorbar(aes(ymin = Mean - SD, ymax = Mean + SD), 
                 width = 0.2, position = position_dodge(0.9)) +
   labs(
-    title = "Random Graph Nonsense",
+    title = '(a)',
     x = '',
     y = "Average Number of Sexual Interactions in a 1 Minute Period",
     fill = ' ' 
   ) +
   theme_classic() +
   theme(
+    plot.title = element_text(hjust = 0.5),
     legend.position = 'bottom',
     panel.border = element_rect(colour = 'black', fill = NA)
   ) +
@@ -55,25 +56,44 @@ ggplot(data, aes(x = Environment, y = Mean, fill = Size)) + scale_y_continuous(b
 
 ```{r Assay 1: Figure 1b. Simulation & Analysis}
 
-#Creating useful variables to create the plot for Figure 1b.
+# Spawning and simulating useful variables to create the plot for Figure 1b
 MeanFeeding_Small<-c(10, 9)
 MeanFeeding_Large<-c(6.5, 13.5)
 EnvironmentType<-c('Vial', 'Cage')
 x <- c(1, 2)
 SD = c(1, 1, 1, 1)
 
-plot(MeanFeeding_Small, axes=FALSE, xlab= "Mating Arena", ylab="Average Number of Feedings Observed", ylim = c(4, 16), pch = 15, col = '#B6D0E2', type = 'o', lwd = 2, cex = 1.5)
-axis(2)
-axis(1, at = seq_along(MeanFeeding_Small), labels = as.character(EnvironmentType), las = 0)
-lines(c(1, 2), MeanFeeding_Large, col='#F1E3D3', pch = 17, type = 'o', lty = 2, lwd = 2, cex = 1.5)
+# Creating a plot that is similar to Figure 1b. in the paper
+plot(MeanFeeding_Small, axes = FALSE, xlab= "Mating Arena", ylab="Average Number of Feedings Observed", ylim = c(4, 16), pch = 15, col = '#B6D0E2', type = 'o', lwd = 2, cex = 1.5)
+  axis(2)
+  axis(1, at = seq_along(MeanFeeding_Small), labels = as.character(EnvironmentType), las = 0)
+  lines(c(1, 2), MeanFeeding_Large, col='#F1E3D3', pch = 17, type = 'o', lty = 2, lwd = 2, cex = 1.5)
+  title(main = '(b)')
 
-# Vertical error bars the good ole fashion way
-arrows(x0 = x, y0 = MeanFeeding_Small - SD, x1 = x, y1 = MeanFeeding_Small + SD, code = 3, angle = 90, length = 0.1)
-arrows(x0 = x, y0 = MeanFeeding_Large - SD, x1 = x, y1 = MeanFeeding_Large + SD, code = 3, angle = 90, length = 0.1)
+  # Vertical error bars the good ole fashion way
+  arrows(x0 = x, y0 = MeanFeeding_Small - SD, x1 = x, y1 = MeanFeeding_Small + SD, code = 3, angle = 90, 
+         length = 0.1)
+  arrows(x0 = x, y0 = MeanFeeding_Large - SD, x1 = x, y1 = MeanFeeding_Large + SD, code = 3, angle = 90, 
+         length = 0.1)
 
-# Creating a legend that labels the female size types with different colours - corresponds to the colours in the previous graph
-legend('topleft', inset = 0.05, c('Small', 'Large'), lty = c(1, 2), col =c ('#B6D0E2','#F1E3D3'), lwd = 2, title = "Female Size")
+  # Creating a legend that labels the female size types with different colours - corresponds to the colours in      the previous graph
+  legend('topleft', inset = 0.05, c('Small', 'Large'), lty = c(1, 2), col =c ('#B6D0E2','#F1E3D3'), 
+         lwd = 2, title = "Female Size")
 
-# Turn plot outline into a box to make it more cutesy
-box()
+  # Turn plot outline into a box to make it more cutesy
+  box()
+```
+```{r Assay 2: Figure 2. Simulation & Analysis}
+low.vial<-rnorm(35, 1, 0.1)
+high.vial<-rnorm(35, 1, 0.1)
+low.cage<-rnorm(35, 1, 0.1)
+high.cage<-rnorm(35, 1, 0.1)
+g<-sample(1:4, 140, replace=TRUE)
+error<-ifelse(g==1, 0.1, ifelse(g==2, 0.5, 1.5))
+g<-as.factor(g)
+response<-24*low.vial+17*high.vial+30*low.cage+28*high.cage+rnorm(140, mean=0, sd=0.1)
+data<-cbind.data.frame(response, low.vial, high.vial, low.cage, high.cage)
+model1<-glm(response~low.vial+high.vial+low.cage+high.cage, data=data)
+summary(model1)
+anova(model1)
 ```
