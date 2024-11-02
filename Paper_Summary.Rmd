@@ -14,6 +14,9 @@ knitr::opts_chunk$set(echo = TRUE)
 #install.packages('MASS')
 #install.packages('dplyr')
 #install.packages('tidyr')
+#install.packages('car')
+#install.packages('pbkrtest')
+#install.packages('pscl')
 library(ggplot2)
 library(lme4)
 library(lmerTest)
@@ -21,9 +24,65 @@ library(MuMIn)
 library(MASS)
 library(dplyr)
 library(tidyr)
+library(car)
+library(pbkrtest)
+library(pscl)
 ```
 
-```{r Assay 1: Figure 1a. Simulation & Analysis}
+```{r Assay 1: Figure 1a. Data Simulation & Analysis}
+
+```
+
+```{r test}
+# Simulate Trait of Interest
+rnorm(1000, 10, 1)->trait_of_interest ### change this to be a trait that you're actually interested in, with an appropriate distribution! 
+
+plot(density(trait_of_interest))
+min(trait_of_interest)
+max(trait_of_interest)
+
+yes<-sample(trait_of_interest, 500, replace=FALSE, prob = ifelse(trait_of_interest>0, 0.95, 0.15)) #### play with this line! Is the test statistically significant. When is it not?
+predictor_t.test<-(trait_of_interest %in% yes)
+
+cbind.data.frame(trait_of_interest, predictor_t.test)->data
+
+mean(data[which(data$predictor_t.test==TRUE),1])
+mean(data[which(data$predictor_t.test==FALSE),1])
+t.test(trait_of_interest~predictor_t.test, data=data) ### this does a two sample t-test. What would a one sample t test be testing? How would you do that?
+
+### plots our two samples for distribution
+plot(density(data[which(data$predictor_t.test==FALSE),1]), col="red", main="Two sample t test")
+lines(density(data[which(data$predictor_t.test==TRUE),1]), ylim=c(0, 0.1), xlim=c(-20,20), main="Two Sample T test")
+
+test1<-sample(trait_of_interest, 200, replace=FALSE, prob = ifelse(trait_of_interest>7, 0.95, 0.15))
+test2<-sample(trait_of_interest[which(trait_of_interest %in% test1 == FALSE)], 200, replace=FALSE, prob = ifelse(trait_of_interest[which(trait_of_interest %in% test1 == FALSE)] >4, 0.95, 0.15))
+test3<-sample(trait_of_interest[which(trait_of_interest %in% test2 == FALSE | trait_of_interest %in% test1 ==FALSE)], 200, replace=FALSE, prob = ifelse(trait_of_interest[which(trait_of_interest %in% test2 == FALSE | trait_of_interest %in% test1 == FALSE)] >0, 0.95, 0.15))
+test4<-sample(trait_of_interest[which(trait_of_interest %in% test2 == FALSE | trait_of_interest %in% test1 ==FALSE | trait_of_interest %in% test3 == FALSE)], 200, replace=FALSE, prob = ifelse(trait_of_interest[which(trait_of_interest %in% test2 == FALSE | trait_of_interest %in% test1 ==FALSE | trait_of_interest %in% test3 == FALSE)] >-4, 0.95, 0.15))
+test5<-trait_of_interest[which(trait_of_interest %in% test1 == FALSE| trait_of_interest %in% test2 == FALSE | trait_of_interest %in% test3 == FALSE | trait_of_interest %in% test4 == FALSE)]
+
+
+plot(density(test1), ylim=c(0, 0.1), main="Anovas")
+lines(density(test2), col="red")
+lines(density(test3), col="blue")
+lines(density(test4), col="purple")
+lines(density(test5), col="yellow")
+
+
+anova_predictor<-data.frame(ifelse(trait_of_interest %in% test1 == TRUE, "group1", ifelse(trait_of_interest %in% test2 == TRUE, "group2", ifelse(trait_of_interest %in% test3 == TRUE, "group3", ifelse(trait_of_interest %in% test4 == TRUE, "group4", "group5")))))
+
+data2<-cbind.data.frame(data, anova_predictor)
+names(data2)<-c("trait_of_interest", "predictor_t.test", "anova_predictor")
+
+
+anova(aov(trait_of_interest~anova_predictor, data=data2)) ### what does this do?
+
+anova(lm(trait_of_interest~anova_predictor, data=data2)) ### what does this do? 
+summary(aov(trait_of_interest~anova_predictor, data=data2)) ### what does this do? What do you notice about the last three tests?
+
+```
+
+
+```{r Assay 1: Figure 1a. Plot}
 # Trait of Interest: 
 
 # Sample Data (replace with your actual data)
@@ -54,7 +113,50 @@ ggplot(data, aes(x = Environment, y = Mean, fill = Size)) + scale_y_continuous(b
   scale_fill_manual(values = c('#B6D0E2', '#F1E3D3'))  # Pastel blue and yellow for the legend
 ```
 
-```{r Assay 1: Figure 1b. Simulation & Analysis}
+```{r Assay 1: Figure 1b. Data Simulation & Analysis}
+# RNG time! - Let's keep it consistent 
+set.seed(123)
+
+# Number of observations made - 2 females, 3 times a day for 3 days * ten replicates for each arena = 180 observations per environment type.
+N = 180
+
+# Changing the effect sizes to get the same values as the paper
+effect_arena <- 2.0       # Main effect of Arena
+effect_size <- 0.5        # Main effect of Size
+effect_interaction <- 2.0  # Interaction effect
+
+# Data simulation time! - Different means for different groups
+feeding_count <- c(
+  rnorm(N, mean = 6.5, sd = 1), # Large females in vials
+  rnorm(N, mean = 13.5 + effect_arena, sd = 1), # Large females in cages
+  rnorm(N, mean = 10 + effect_size, sd = 1), # Small females in vials
+  rnorm(N, mean = 8.5 + effect_arena + (effect_size * (1 + effect_interaction)), sd = 1) # Small females in cages
+)
+
+# Making sure that FeedingCount is a positive float (can't eat negative amounts!)
+feeding_count <- ifelse(feeding_count <= 0, feeding_count + 0.1, feeding_count)
+
+# Let's make all of this into a data frame - matrix time :(
+data <- data.frame(
+  Arena = factor(rep(c('vial', 'cage'), each = N * 2)),
+  Size = factor(rep(c('large', 'small'), times = N * 2)),
+  FeedingCount = feeding_count
+)
+
+
+model_gaussian <- glm(FeedingCount ~ Arena * Size, data = data, family = gaussian(link = 'log'))
+
+summary(model_gaussian)
+
+# Use lmerTest to get F-statistics and p-values
+anova_result <- anova(model_gaussian, test = "F") 
+
+# Print the results
+print(anova_result)
+
+```
+
+```{r Assay 1: Figure 1b. Plot}
 
 # Spawning and simulating useful variables to create the plot for Figure 1b
 MeanFeeding_Small<-c(10, 9)
@@ -83,7 +185,8 @@ plot(MeanFeeding_Small, axes = FALSE, xlab= "Mating Arena", ylab="Average Number
   # Turn plot outline into a box to make it more cutesy
   box()
 ```
-```{r Assay 2: Figure 2. Simulation & Analysis}
+
+```{r Assay 2: Figure 2. Data Simulation & Analysis}
 low.vial<-rnorm(35, 1, 0.1)
 high.vial<-rnorm(35, 1, 0.1)
 low.cage<-rnorm(35, 1, 0.1)
