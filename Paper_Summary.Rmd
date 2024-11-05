@@ -1,5 +1,5 @@
 ---
-title: "Paper Summary"
+title: "Paper Summary Assignment"
 author: "Marqus Odisho & Sargon Yousefian"
 date: "`r Sys.Date()`"
 output: html_document
@@ -28,9 +28,39 @@ library(car)
 library(pbkrtest)
 library(pscl)
 ```
-## Data Simulation & Analysis
-### Assay 1:
-For the data 
+### Paper Choice 
+
+_The physical environment mediates male harm and its effect on selection in females_. 
+Li Yun, Patrick J. Chen, Amardeep Singh, Aneil F. Agrawal, and Howard D. Rundle.
+
+### Methods Summary
+
+#### Assay 1
+
+This assay examined the impact of the physical environment on male fruit fly sexual behaviors. Two different environments were set up: a small vial and a larger Ziploc container, both containing food. Each environment had ten replicates, with 37 male and 37 female flies in each. The female flies were divided into two categories, small and large, based on manipulated egg density. For each replicate, four females, two large and two small, were marked with different fluorescent powders for identification. The flies were allowed to acclimate for one hour before observations began. Researchers recorded their movements three times a day (at 7:00, 12:00, and 17:00). During one-minute observation periods, the sexual activities directed toward each marked female were noted, including courtship behaviors like singing and chasing, as well as copulation attempts. The duration of these activities and whether the females fed during the observation were also recorded. Data from each arena were then aggregated for analysis.
+
+#### Assay 2
+
+The second assay examined how environmental factors influence male-induced harm to female fruit flies through a two-way factorial experiment, manipulating male exposure (low vs. high) and environmental complexity, simple vs. complex. The simple environment was represented by vials, while the complex environment was represented by Ziploc containers. In total, 35 replicates were observed, each containing 35 female flies. In the low-exposure condition, females were exposed to males for three hours on days 1, 4, and 6 of their mating phase. In the high-exposure condition, males were present continuously in the arenas. After the third exposure, females were assessed for survival. From each replicate, ten random females were selected, and the number of adults or emerging pupae from their eggs was recorded. Total adult fitness, encompassing both fecundity and survival, was calculated by multiplying these two values.
+
+### Statistical Methods Summary
+
+#### Assay 1
+
+For this assay, two statistical methods were used to help interpret the results. First, a two-sample t-test treating separate mating arenas as replicates was conducted to compare the difference in sexual activity score of the two female types (large and small) between the two arenas. The reason the authors chose to create a sexual activity score and compare that across mating arenas was because the observations within a certain vial or cage were not independent. The results indicated that the means (difference in sexual activity) of the vial group and the cage group were significantly different as indicated by the values (t18 = 5.89, p < 0.001). To the authors this suggested that the difference in male sexual attention towards large and small females was different in vials vs. in cages. It made sense to use the two-sample t-test to compare means between the two environments as one of the goals of this paper was to compare how the environment changed the sexual interactions of Drosophila melanogaster. It is also important to note that the authors took steps to avoid violating one of the assumptions of the two-sample t-test (independence) by creating a single sexual activity score for each replicate (for both small and large females) as the observations of average number of sexual encounters within the cages and vials were not independent.     
+
+#### Assay 2
+
+Insert sample text. 
+
+### Data Simulation & Analysis
+
+#### Assay 1
+
+For the methods and results in Assay 1, the dataset was simulated and analysized in two different ways corresponding to Figures 1a and 1b in the original paper. The corresponding code is seperated into two blocks, one for Figure 1a and the other for Figure 1b. 
+
+#### Figure 1a: Data Simulation and Analysis
+
 ```{r Assay 1: Figure 1a. Data Simulation & Analysis}
 # Set the number of replicates from paper
 n_vials <- 10
@@ -91,54 +121,7 @@ t.test(score_difference ~ arena_type, data = activity_data)
 
 ```
 
-```{r test}
-# Simulate Trait of Interest
-rnorm(1000, 10, 1)->trait_of_interest ### change this to be a trait that you're actually interested in, with an appropriate distribution! 
-
-plot(density(trait_of_interest))
-min(trait_of_interest)
-max(trait_of_interest)
-
-yes<-sample(trait_of_interest, 500, replace=FALSE, prob = ifelse(trait_of_interest>0, 0.95, 0.15)) #### play with this line! Is the test statistically significant. When is it not?
-predictor_t.test<-(trait_of_interest %in% yes)
-
-cbind.data.frame(trait_of_interest, predictor_t.test)->data
-
-mean(data[which(data$predictor_t.test==TRUE),1])
-mean(data[which(data$predictor_t.test==FALSE),1])
-t.test(trait_of_interest~predictor_t.test, data=data) ### this does a two sample t-test. What would a one sample t test be testing? How would you do that?
-
-### plots our two samples for distribution
-plot(density(data[which(data$predictor_t.test==FALSE),1]), col="red", main="Two sample t test")
-lines(density(data[which(data$predictor_t.test==TRUE),1]), ylim=c(0, 0.1), xlim=c(-20,20), main="Two Sample T test")
-
-test1<-sample(trait_of_interest, 200, replace=FALSE, prob = ifelse(trait_of_interest>7, 0.95, 0.15))
-test2<-sample(trait_of_interest[which(trait_of_interest %in% test1 == FALSE)], 200, replace=FALSE, prob = ifelse(trait_of_interest[which(trait_of_interest %in% test1 == FALSE)] >4, 0.95, 0.15))
-test3<-sample(trait_of_interest[which(trait_of_interest %in% test2 == FALSE | trait_of_interest %in% test1 ==FALSE)], 200, replace=FALSE, prob = ifelse(trait_of_interest[which(trait_of_interest %in% test2 == FALSE | trait_of_interest %in% test1 == FALSE)] >0, 0.95, 0.15))
-test4<-sample(trait_of_interest[which(trait_of_interest %in% test2 == FALSE | trait_of_interest %in% test1 ==FALSE | trait_of_interest %in% test3 == FALSE)], 200, replace=FALSE, prob = ifelse(trait_of_interest[which(trait_of_interest %in% test2 == FALSE | trait_of_interest %in% test1 ==FALSE | trait_of_interest %in% test3 == FALSE)] >-4, 0.95, 0.15))
-test5<-trait_of_interest[which(trait_of_interest %in% test1 == FALSE| trait_of_interest %in% test2 == FALSE | trait_of_interest %in% test3 == FALSE | trait_of_interest %in% test4 == FALSE)]
-
-
-plot(density(test1), ylim=c(0, 0.1), main="Anovas")
-lines(density(test2), col="red")
-lines(density(test3), col="blue")
-lines(density(test4), col="purple")
-lines(density(test5), col="yellow")
-
-
-anova_predictor<-data.frame(ifelse(trait_of_interest %in% test1 == TRUE, "group1", ifelse(trait_of_interest %in% test2 == TRUE, "group2", ifelse(trait_of_interest %in% test3 == TRUE, "group3", ifelse(trait_of_interest %in% test4 == TRUE, "group4", "group5")))))
-
-data2<-cbind.data.frame(data, anova_predictor)
-names(data2)<-c("trait_of_interest", "predictor_t.test", "anova_predictor")
-
-
-anova(aov(trait_of_interest~anova_predictor, data=data2)) ### what does this do?
-
-anova(lm(trait_of_interest~anova_predictor, data=data2)) ### what does this do? 
-summary(aov(trait_of_interest~anova_predictor, data=data2)) ### what does this do? What do you notice about the last three tests?
-
-```
-
+#### Figure 1a. Plot of Results
 
 ```{r Assay 1: Figure 1a. Plot}
 # Trait of Interest: 
@@ -170,6 +153,12 @@ ggplot(data, aes(x = Environment, y = Mean, fill = Size)) + scale_y_continuous(b
   ) +
   scale_fill_manual(values = c('#B6D0E2', '#F1E3D3'))  # Pastel blue and yellow for the legend
 ```
+
+#### Interpretation of Results in Figure 1a
+
+Sample Text. Please fill in.
+
+#### Figure 1b: Data Simulation and Analysis
 
 ```{r Assay 1: Figure 1b. Data Simulation & Analysis}
 # RNG time! - Let's keep it consistent 
@@ -214,6 +203,8 @@ print(anova_result)
 
 ```
 
+#### Figure 1b: Plot of Results
+
 ```{r Assay 1: Figure 1b. Plot}
 
 # Spawning and simulating useful variables to create the plot for Figure 1b
@@ -244,17 +235,52 @@ plot(MeanFeeding_Small, axes = FALSE, xlab= "Mating Arena", ylab="Average Number
   box()
 ```
 
+#### Interpretation of Results in Figure 1b
+
+Sample text. Please fill in. 
+
+#### Assay 2
+
+#### Figure 2: Data Simulation & Analysis
+
 ```{r Assay 2: Figure 2. Data Simulation & Analysis}
-low.vial<-rnorm(35, 1, 0.1)
-high.vial<-rnorm(35, 1, 0.1)
-low.cage<-rnorm(35, 1, 0.1)
-high.cage<-rnorm(35, 1, 0.1)
-g<-sample(1:4, 140, replace=TRUE)
-error<-ifelse(g==1, 0.1, ifelse(g==2, 0.5, 1.5))
-g<-as.factor(g)
-response<-24*low.vial+17*high.vial+30*low.cage+28*high.cage+rnorm(140, mean=0, sd=0.1)
-data<-cbind.data.frame(response, low.vial, high.vial, low.cage, high.cage)
-model1<-glm(response~low.vial+high.vial+low.cage+high.cage, data=data)
-summary(model1)
-anova(model1)
+# Simulated data
+low.vial <- rnorm(35, 1, 0.1)
+high.vial <- rnorm(35, 1, 0.1)
+low.cage <- rnorm(35, 1, 0.1)
+high.cage <- rnorm(35, 1, 0.1)
+
+# Combine into a single response variable
+response <- c(
+  24 * low.vial + rnorm(35, mean = 0, sd = 0.1),  # Low Vial
+  17 * high.vial + rnorm(35, mean = 0, sd = 0.1), # High Vial
+  30 * low.cage + rnorm(35, mean = 0, sd = 0.1),  # Low Cage
+  28 * high.cage + rnorm(35, mean = 0, sd = 0.1)   # High Cage
+)
+
+# Divide data points in groups (low vs high) and type (vial vs cage)
+data <- data.frame(
+  response = response,
+  group = factor(rep(c("Low", "High", "Low", "High"), each = 35)),
+  type = factor(rep(c("Vial", "Vial", "Cage", "Cage"), times = 35))
+  )
+  
+# Adjust to ensure proper pairing of group and type
+data$type <- factor(rep(c("Vial", "Vial", "Cage", "Cage"), each = 35))
+
+# Fit the two-way ANOVA model
+anova_model <- aov(response ~ group + type + group:type, data = data)
+
+# Summary of the ANOVA
+summary(anova_model)
+
 ```
+
+#### Figure 2: Plot of Results
+
+Insert plot here. 
+
+#### Interpretation of Results in Figure 2 
+
+From the ANOVA generated by the generalized linear model, both the P value comparing high versus low exposure and the vial versus the cage arena were lower than 0.05. This indicates that the there are significant differences between each treatment. Specifically, the statistical analysis reveals that a higher exposure to males leads to a reduced adult fitness. Furthermore, it also reveals that in the cage arena the females had a higher adult fitness than in the vial. 
+
