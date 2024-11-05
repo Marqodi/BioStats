@@ -1,0 +1,31 @@
+---
+title: "Registered Report"
+author: "Marqus Odisho"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+#install.packages('ggplot2')
+#install.packages('lme4')
+#install.packages('lmerTest')
+#install.packages('MuMIn')
+#install.packages('MASS')
+#install.packages('dplyr')
+#install.packages('tidyr')
+#install.packages('car')
+#install.packages('pbkrtest')
+#install.packages('pscl')
+library(ggplot2)
+library(lme4)
+library(lmerTest)
+library(MuMIn)
+library(MASS)
+library(dplyr)
+library(tidyr)
+library(car)
+library(pbkrtest)
+library(pscl)
+```
+
