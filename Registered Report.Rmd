@@ -29,6 +29,7 @@ library(pbkrtest)
 library(pscl)
 ```
 
+<<<<<<< HEAD
 ```{r Data Simulation}
 q_maternal <- rbeta(1000, 0.5, 0.5)
 q_paternal <- rbeta(1000, 0.5, 0.5)
