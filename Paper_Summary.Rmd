@@ -28,8 +28,66 @@ library(car)
 library(pbkrtest)
 library(pscl)
 ```
-
+## Data Simulation & Analysis
+### Assay 1:
+For the data 
 ```{r Assay 1: Figure 1a. Data Simulation & Analysis}
+# Set the number of replicates from paper
+n_vials <- 10
+
+# Set the average differences in activity scores
+mean_diff_simple <- 6
+mean_diff_complex <- -1
+
+# Adjust the standard deviation to achieve the desired t-value and p-value
+sd_diff <- 2.5
+
+# Create an empty data frame
+activity_data <- data.frame(
+  female_type = character(0),
+  arena_type = character(0),
+  vial_cage_id = numeric(0),
+  activity_score = numeric(0)
+)
+
+# Generate data for each vial/cage (for loops are harder in R than in Python in my opinion!)
+for (i in 1:n_vials) {
+  # Simple arena
+  activity_data <- rbind(activity_data, data.frame(
+    female_type = "large",
+    arena_type = "simple",
+    vial_cage_id = i,
+    activity_score = rnorm(1, mean = 10 + mean_diff_simple/2, sd = sd_diff)
+  ))
+  activity_data <- rbind(activity_data, data.frame(
+    female_type = "small",
+    arena_type = "simple",
+    vial_cage_id = i,
+    activity_score = rnorm(1, mean = 10 - mean_diff_simple/2, sd = sd_diff)
+  ))
+
+  # Complex arena
+  activity_data <- rbind(activity_data, data.frame(
+    female_type = "large",
+    arena_type = "complex",
+    vial_cage_id = i,
+    activity_score = rnorm(1, mean = 10 + mean_diff_complex/2, sd = sd_diff)
+  ))
+  activity_data <- rbind(activity_data, data.frame(
+    female_type = "small",
+    arena_type = "complex",
+    vial_cage_id = i,
+    activity_score = rnorm(1, mean = 10 - mean_diff_complex/2, sd = sd_diff)
+  ))
+}
+
+# Calculate the difference in activity scores within each vial/cage
+activity_data <- activity_data %>%
+  group_by(arena_type, vial_cage_id) %>%
+  summarize(score_difference = activity_score[female_type == "large"] - activity_score[female_type == "small"])
+
+# Perform the two-sample t-test 
+t.test(score_difference ~ arena_type, data = activity_data)
 
 ```
 
