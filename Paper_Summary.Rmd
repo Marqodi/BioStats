@@ -80,7 +80,7 @@ activity_data <- data.frame(
   activity_score = numeric(0)
 )
 
-# Generate data for each vial/cage (for loops are harder in R than in Python in my opinion!)
+# Generate data for each vial/cage (For loops are harder in R than in Python in my opinion!)
 for (i in 1:n_vials) {
   # Simple arena
   activity_data <- rbind(activity_data, data.frame(
