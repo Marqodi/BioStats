@@ -29,11 +29,74 @@ library(pbkrtest)
 library(pscl)
 ```
 
-<<<<<<< HEAD
+```{r test}
+# Set a seed for reproducibility
+set.seed(123)
+
+# Create two datasets, `q_maternal` and `q_paternal`, each with 1000 data points following a beta distribution
+q_maternal <- rbeta(1000, 1, 1)
+q_paternal <- rbeta(1000, 1, 1)
+
+# Create a new dataset, `sampled_q_maternal`, by sampling 500 q scores without replacement from the `q_maternal` dataset
+sampled_q_maternal <- sample(q_maternal, 500, replace=FALSE)
+
+# Create a new variable, `sampled_q_paternal`, by sampling 500 q scores from the `q_paternal` dataset
+# Use the `ifelse()` function to set the probability of selecting a q score from `q_paternal` based on the corresponding q score in `sampled_q_maternal`
+sampled_q_paternal <- sapply(sampled_q_maternal, function(x) {
+  if (x >= 0.5) {
+    sample(q_paternal[q_paternal >= 0.5], 1, prob = rep(0.9 / length(q_paternal[q_paternal >= 0.5]), length(q_paternal[q_paternal >= 0.5])))
+  } else {
+    sample(q_paternal[q_paternal < 0.5], 1, prob = rep(0.1 / length(q_paternal[q_paternal < 0.5]), length(q_paternal[q_paternal < 0.5])))
+  }
+})
+
+# Create a new dataframe, `q_scores_df`, by combining `sampled_q_maternal` and `sampled_q_paternal`
+q_scores_df <- data.frame(sampled_q_maternal, sampled_q_paternal)
+
+# Plot a scatterplot of `sampled_q_paternal` versus `sampled_q_maternal` to visualize the relationship between the two variables
+plot(sampled_q_maternal, sampled_q_paternal, xlab="Sampled Maternal q scores", ylab="Sampled Paternal q scores", main="Scatterplot of Maternal vs Paternal q scores")
+```
+
+```{r test 2}
+# Set a seed for reproducibility
+set.seed(123)
+
+# Create two datasets, `q_maternal` and `q_paternal`, each with 1000 data points following a beta distribution
+q_maternal <- rbeta(1000, 1, 1)
+q_paternal <- rbeta(1000, 1, 1)
+
+# Create a new dataset, `sampled_q_maternal`, by sampling 500 q scores without replacement from the `q_maternal` dataset
+sampled_q_maternal <- sample(q_maternal, 500, replace=FALSE)
+
+# Create a new variable, `sampled_q_paternal`, by sampling 500 q scores from the `q_paternal` dataset
+# Use the `ifelse()` function to set the probability of selecting a q score from `q_paternal` based on the corresponding q score in `sampled_q_maternal`
+sampled_q_paternal <- sapply(sampled_q_maternal, function(x) {
+  if (x <= 0.5) {
+    # If the maternal q score is less than or equal to 0.5, sample from the lower half of the paternal q scores with higher probability
+    sample(q_paternal[q_paternal <= 0.5], 1, prob = ifelse(q_paternal[q_paternal <= 0.5] <= 0.25, 0.9, 0.1))
+  } else {
+    # If the maternal q score is greater than 0.5, sample from the upper half of the paternal q scores with higher probability
+    sample(q_paternal[q_paternal > 0.5], 1, prob = ifelse(q_paternal[q_paternal > 0.5] >= 0.75, 0.9, 0.1))
+  }
+})
+
+# Create a new dataframe, `q_scores_df`, by combining `sampled_q_maternal` and `sampled_q_paternal`
+q_scores_df <- data.frame(sampled_q_maternal, sampled_q_paternal)
+
+# Plot a scatterplot of `sampled_q_paternal` versus `sampled_q_maternal` to visualize the relationship between the two variables
+plot(sampled_q_maternal, sampled_q_paternal, xlab="Sampled Maternal q scores", ylab="Sampled Paternal q scores", main="Scatterplot of Maternal vs Paternal q scores")
+```
 ```{r Data Simulation}
-q_maternal <- rbeta(1000, 0.5, 0.5)
-q_paternal <- rbeta(1000, 0.5, 0.5)
-plot(density(q_maternal))
+# Simulate q score data for maternal and paternal species in a beta distribution with a random mating pattern to draw samples from. 
+q_maternal <- rbeta(1000, 1, 1)
+q_paternal <- rbeta(1000, 1, 1)
+
+# Visualize random mating pattern following a beta distribution
+hist(q_paternal)
+hist(q_maternal)
+
+# Sample and group q scores to indicate predicted mating patterns 
+maternal_random <- sample(q_maternal, 500, replace = FALSE)
 
 # Add correlation test at one point
 ```
