@@ -77,6 +77,14 @@ plot(density(q_scores_df$averaged_q_scores),
 
 # Add a rug plot to the bottom of the density plot to show the individual data points that make up the distribution
 rug(q_scores_df$averaged_q_scores)
+
+# Perform Spearman rank correlation test
+cor_test_result <- cor.test(q_scores_df$sampled_q_maternal, 
+                           q_scores_df$sampled_q_paternal, 
+                           method = "spearman")
+
+# Print the correlation test result
+print(cor_test_result)
 ```
 
 ### Assortative Mating - Extreme Phenotype Preference
@@ -125,4 +133,13 @@ plot(density(q_scores_df$averaged_q_scores),
 
 # Add a rug plot to the bottom of the density plot to show the individual data points that make up the distribution
 rug(q_scores_df$averaged_q_scores)
+
+# Perform Spearman rank correlation test
+cor_test_result <- cor.test(q_scores_df$sampled_q_maternal, 
+                           q_scores_df$sampled_q_paternal, 
+                           method = "spearman")
+
+# Print the correlation test result
+print(cor_test_result)
 ```
+
