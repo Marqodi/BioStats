@@ -29,9 +29,31 @@ library(pbkrtest)
 library(pscl)
 ```
 
-### Description
+## Proposed Analysis Pipeline:
 
-Code looks to simulate assortative mating between two species to potentially form hybrid offspring. This assortative mating will be based on q scores which can range from 0 (which indicates species 1) to 1 (which indicates species 2) and intermediate values which indicate hybrids of the two. The code will simulate two types of assortative mating, the strict definition which means that individuals will want to mate with someone with an identical q score and the extreme phenotype definition which is where individuals will want to mate with someone with either a higher or lower q score than them. The code will simulate individual maternal and paternal datasets and then pair them up based on either of the two assortative mating definitions previously mentioned. The aformentioned pairing will be visualized in a scatterplot to show the mating patterns. Then, offspring will be generated based on those previous mating patterns that will be a blend of the q scores of both parents. The q scores of the offspring will be plotted to show how different assortative mating patterns influence hybrid zone outcomes. A correlation test will be performed on the data to understand the relationship between the q scores.  
+### Preprocessing Steps:
+
+There will be separate simulations for two different cases of assortative mating. In both cases, the initial maternal and paternal q scores will be simulated following a beta distribution. A beta distribution is ideal for q scores as they can take on values between 0 and 1. The initial pattern for the beta distribution of q scores will be a bimodal pattern with peaks around 0 and 1 indicating that a majority of the individuals are parental species rather than hybrids. 1000 maternal and paternal q scores will be simulated for a total of 2000 which is consistent with literature on the topic of assortative mating simulation. Using the sample function in R, maternal q scores will be sampled from the initial maternal q score dataset before being matched with sampled paternal q scores. In the strict case of assortative mating, maternal q scores will be paired with paternal q scores of a similar value. In the case of mating based on extreme phenotype, the maternal q scores will be paired with paternal q scores with extreme values (e.g. maternal q scores less than 0.5 will be paired with paternal q scores closer to 0 and maternal q scores higher than 0.5 will be paired with paternal q scores closer to 1). Using these pairings for both assortative mating types, the parental q scores will be averaged to generate offspring q scores. No statistical power analysis is proposed as the thesis involves the simulation of data rather than sampling associated with laboratory and fieldwork methodology.  
+
+It is important to note that the aforementioned steps are done to approximate a dataset that would otherwise be simulated using forward genetic simulation software. This requires simplifying assumptions such as blended inheritance for offspring, matching based on q scores, and the exclusion of phenotypes. 
+
+### Planned Analysis:
+
+#### Spearman’s rank correlation test: 
+
+This test assesses the correlation between the paired maternal and paternal q scores. This non-parametric correlation test will be performed instead of Pearson’s correlation test as q scores are not normally distributed.  In both cases of assortative mating, a correlation is expected, with the null hypothesis being random mating. A positive correlation would indicate a preference for mates with a similar q score.  
+
+#### Beta regression: 
+
+A beta regression will be used as the response variable (q score) follows a beta distribution. Potential parameters to explore include hybridization rates, strength of preference, and the influence of mating pool availability on preference.
+
+It should be noted that due to the simplifying assumptions made in this code, a beta regression was not performed. Furthermore, strength of preference was preset for both cases of assortative mating based on sampling and matching probabilities for q scores.   
+
+
+### Code Description:
+
+The code simulates assortative mating between two species to potentially form hybrid offspring. This assortative mating will be based on q scores which can range from 0 (which indicates species 1) to 1 (which indicates species 2) and intermediate values which indicate hybrids of the two. The code will simulate two types of assortative mating, the strict definition which means that individuals will want to mate with someone with an identical q score and the extreme phenotype definition which is where individuals will want to mate with someone with either a higher or lower q score than them. The code will simulate individual maternal and paternal datasets and then pair them up based on either of the two assortative mating definitions previously mentioned. The aforementioned pairing will be visualized in a scatter plot to show the mating patterns. Then, offspring will be generated based on those previous mating patterns that will be a blend of the q scores of both parents. The q scores of the offspring will be plotted to show how different assortative mating patterns influence hybrid zone outcomes. A correlation test will be performed on the data to understand the relationship between the q scores.
+
 
 ### Assortative Mating - Strict Definition
 ```{r Assortative Mating - Strict Definition}
@@ -109,7 +131,7 @@ hist(q_maternal,
      )
 
 # Create a new dataset, sampled_q_maternal, by sampling 500 q scores without replacement from the q_maternal dataset
-sampled_q_maternal <- sample(q_maternal, 500, replace=FALSE)
+sampled_q_maternal <- sample(q_maternal, 500, replace = FALSE)
 
 # Create a new variable, sampled_q_paternal, by sampling 500 q scores from the q_paternal dataset
 # Use the ifelse() function to set the probability of selecting a q score from q_paternal based on the corresponding q score in sampled_q_maternal, in this case the function x represents sampled maternal q scores that are then being matched with sampled paternal q scores based on preset probabilities.
