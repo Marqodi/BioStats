@@ -37,27 +37,29 @@ Li Yun, Patrick J. Chen, Amardeep Singh, Aneil F. Agrawal, and Howard D. Rundle.
 
 #### Assay 1
 
-This assay examined the impact of the physical environment on male fruit fly sexual behaviors. Two different environments were set up: a small vial and a larger Ziploc container, both containing food. Each environment had ten replicates, with 37 male and 37 female flies in each. The female flies were divided into two categories, small and large, based on manipulated egg density. For each replicate, four females, two large and two small, were marked with different fluorescent powders for identification. The flies were allowed to acclimate for one hour before observations began. Researchers recorded their movements three times a day (at 7:00, 12:00, and 17:00). During one-minute observation periods, the sexual activities directed toward each marked female were noted, including courtship behaviors like singing and chasing, as well as copulation attempts. The duration of these activities and whether the females fed during the observation were also recorded. Data from each arena were then aggregated for analysis.
+This assay examined the impact of the physical environment on male fruit fly sexual behaviors. Two different environments were set up: a small vial and a larger Ziploc container, both containing food. Each environment had ten replicates, with 34 male and 34 female flies in each. The female flies were divided into two categories, small and large, based on manipulated egg density. For each replicate, four females, two large and two small, were marked with different fluorescent powders for identification. The flies were allowed to acclimate for one hour before observations began. Researchers recorded their movements three times a day (at 7:00, 12:00, and 17:00). During one-minute observation periods, the sexual activities directed toward each marked female were noted, including courtship behaviors like singing and chasing, as well as copulation attempts. The duration of these activities and whether the females fed during the observation were also recorded. Data from each arena were then aggregated for analysis. Sexual activity behaviour, and feeding observations were the response variables whereas the simple and complex environments were the predictor variables for this assay. A two-sample t-test was done to compare the difference in sexual activity score of the two female types between the two mating environments. Furthermore, a general linear model was used to analyze how feeding behaviour was influenced by mating arena, female size, and their interaction. 
 
 #### Assay 2
 
-The second assay examined how environmental factors influence male-induced harm to female fruit flies through a two-way factorial experiment, manipulating male exposure (low vs. high) and environmental complexity, simple vs. complex. The simple environment was represented by vials, while the complex environment was represented by Ziploc containers. In total, 35 replicates were observed, each containing 35 female flies. In the low-exposure condition, females were exposed to males for three hours on days 1, 4, and 6 of their mating phase. In the high-exposure condition, males were present continuously in the arenas. After the third exposure, females were assessed for survival. From each replicate, ten random females were selected, and the number of adults or emerging pupae from their eggs was recorded. Total adult fitness, encompassing both fecundity and survival, was calculated by multiplying these two values.
+The second assay examined how environmental factors influence male-induced harm to female fruit flies through a two-way factorial experiment, manipulating male exposure (low vs. high) and environmental complexity, simple vs. complex. The simple environment was represented by vials, while the complex environment was represented by Ziploc containers. In total, 35 replicates were observed, each containing 35 female flies. In the low-exposure condition, females were exposed to males for three hours on days 1, 4, and 6 of their mating phase. In the high-exposure condition, males were present continuously in the arenas. After the third exposure, females were assessed for survival. From each replicate, ten random females were selected, and the number of adults or emerging pupae from their eggs was recorded. Total adult fitness, encompassing both fecundity and survival, was calculated by multiplying these two values. The response variable was total adult fitness and the predictor variables were the mating arena and male exposure type. A general linear model was used to determine the variation in total adult fitness with the fixed effects being mating arena, male exposure, and their interaction. 
 
 ### Statistical Methods Summary
 
 #### Assay 1
 
-For this assay, two statistical methods were used to help interpret the results. First, a two-sample t-test treating separate mating arenas as replicates was conducted to compare the difference in sexual activity score of the two female types (large and small) between the two arenas. The reason the authors chose to create a sexual activity score and compare that across mating arenas was because the observations within a certain vial or cage were not independent. The results indicated that the means (difference in sexual activity) of the vial group and the cage group were significantly different as indicated by the values (t18 = 5.89, p < 0.001). To the authors this suggested that the difference in male sexual attention towards large and small females was different in vials vs. in cages. It made sense to use the two-sample t-test to compare means between the two environments as one of the goals of this paper was to compare how the environment changed the sexual interactions of Drosophila melanogaster. It is also important to note that the authors took steps to avoid violating one of the assumptions of the two-sample t-test (independence) by creating a single sexual activity score for each replicate (for both small and large females) as the observations of average number of sexual encounters within the cages and vials were not independent.     
+For this assay, two statistical methods were used to help interpret the results. First, a two-sample t-test treating separate mating arenas as replicates was conducted to compare the difference in sexual activity score of the two female types (large and small) between the two arenas. The reason the authors chose to create a sexual activity score and compare that across mating arenas was because the observations within a certain vial or cage were not independent. The results indicated that the means (difference in sexual activity) of the vial group and the cage group were significantly different as indicated by the values (t18 = 5.89, p < 0.001). To the authors this suggested that the difference in male sexual attention towards large and small females was different in vials vs. in cages. It made sense to use the two-sample t-test to compare means between the two environments, as one of the goals of this paper was to compare how the environment changed the sexual interactions of Drosophila melanogaster. It is also important to note that the authors took steps to avoid violating one of the assumptions of the two-sample t-test (independence) by creating a single sexual activity score for each replicate (for both small and large females) as the observations of average number of sexual encounters within the cages and vials were not independent. 
+A general linear model was also used to analyze the influence of mating arena, female size, and their interaction on feeding observations. What the authors observed was that large females fed more often in cages than in vials whereas small females did not. This indicated that there was a significant interaction between mating arena and female size (F1,36 = 47.36, p < 0.001). The authors also found that feeding behaviours were higher in cages than vials when pooling across females (F1,36 = 21.30, p < 0.001). It made sense for the authors to use a general linear model as there were multiple independent variables and a single dependent variable (feeding). They also wanted to see how the independent variables interacted with each other to influence the feeding behaviours and they found a significant interaction between mating arena and female size. Similarly to the previous t-test, the goal of the general linear model was to determine the influence of the environment on female fruit flies when exposed to males.     
 
 #### Assay 2
 
-Insert sample text. 
+The statistical method used for assay 2 was also a general linear model. This time the authors looked at the influence of mating arena, male exposure, and their interaction on total adult fitness of female fruit flies. What the authors found was that under lower male exposure, female fitness increased (F1,134 = 22.70, p < 0.0001). They also found that females in the complex cage arena had higher fitness than in vials (F1,134 = 110.43, p < 0.0001). Finally, the authors also concluded that there was a significant interaction between male exposure and mating arena suggesting that the impact of male exposure is higher in vials (F1,134 = 7.49, p < 0.007). The usage of the general linear model was a prudent one as it provided key information about male harm and how it is mediated by the environment which was a goal of this study. As there were multiple independent variables that could interact with each other to influence the predictor variable, it made sense to use a general linear model as the statistical methods.
+
 
 ### Data Simulation & Analysis
 
 #### Assay 1
 
-For the methods and results in Assay 1, the dataset was simulated and analysized in two different ways corresponding to Figures 1a and 1b in the original paper. The corresponding code is seperated into two blocks, one for Figure 1a and the other for Figure 1b. 
+For the methods and results in Assay 1, the dataset was simulated and analysed corresponding to Figure 1a in the original paper. The corresponding code is separated into two blocks, one for Figure 1a simulation and the other for plotting. Note: Figure 1b is not shown as it had similar steps to Figure 2 which was also plotted and analyzed. 
 
 #### Figure 1a: Data Simulation and Analysis
 
@@ -65,7 +67,7 @@ For the methods and results in Assay 1, the dataset was simulated and analysized
 # Set the number of replicates from paper
 n_vials <- 10
 
-# Set the average differences in activity scores
+# Set the average differences in activity scores (this step was done in the paper without showing their work so this was an estimate of what they did)
 mean_diff_simple <- 6
 mean_diff_complex <- -1
 
@@ -80,14 +82,14 @@ activity_data <- data.frame(
   activity_score = numeric(0)
 )
 
-# Generate data for each vial/cage (For loops are harder in R than in Python in my opinion!)
+# Generate data for each vial/cage, repeating until i = N of vials = which should be 10 (For loops are harder in R than in Python in my opinion!)
 for (i in 1:n_vials) {
   # Simple arena
   activity_data <- rbind(activity_data, data.frame(
     female_type = "large",
     arena_type = "simple",
     vial_cage_id = i,
-    activity_score = rnorm(1, mean = 10 + mean_diff_simple/2, sd = sd_diff)
+    activity_score = rnorm(1, mean = 10 + mean_diff_simple/2, sd = sd_diff) # 
   ))
   activity_data <- rbind(activity_data, data.frame(
     female_type = "small",
@@ -116,7 +118,8 @@ activity_data <- activity_data %>%
   group_by(arena_type, vial_cage_id) %>%
   summarize(score_difference = activity_score[female_type == "large"] - activity_score[female_type == "small"])
 
-# Perform the two-sample t-test 
+# Perform the two-sample t-test looking for difference in activity score between vial and cage groups
+# Note: t-test should find a significant difference in means between the groups to match the value found in the paper. Approx t = 4
 t.test(score_difference ~ arena_type, data = activity_data)
 
 ```
@@ -124,20 +127,24 @@ t.test(score_difference ~ arena_type, data = activity_data)
 #### Figure 1a. Plot of Results
 
 ```{r Assay 1: Figure 1a. Plot}
-# Trait of Interest: 
-
-# Sample Data (replace with your actual data)
+# Code that generates a plot similar to figure 1a of the paper
+# Data that is broken up into vial and cage with values for small females and large females. 
 data <- data.frame(
   Environment = factor(rep(c('Vial', 'Cage'), each = 2), levels = c('Vial', 'Cage')),
   Size = factor(rep(c('Small', 'Large'), 2), levels = c('Small', 'Large')),
-  Mean = c(4, 10, 6, 5),
-  SD = c(1, 1, 1, 1)  # Standard deviation (replace with your actual values)
+  Mean = c(4, 10, 6, 5), # mean value of sexual interactions as found in the literature
+  SD = c(1, 1, 1, 1)    # Standard deviation of 1 as a default as none was indicated in the paper
 )
 
+# Arena replicates of 10 of each mating arena = N of 20 to calculate standard error
+n <- 20  
+data$SE <- data$SD / sqrt(n)  # Calculate Standard Error
+
 # Create the bar graph with error bars (Environment on x-axis)
-ggplot(data, aes(x = Environment, y = Mean, fill = Size)) + scale_y_continuous(breaks=c(0, 2, 4, 6, 8, 10)) +
+ggplot(data, aes(x = Environment, y = Mean, fill = Size)) + 
+  scale_y_continuous(breaks=c(0, 2, 4, 6, 8, 10)) +
   geom_bar(stat = 'identity', position = 'dodge') +
-  geom_errorbar(aes(ymin = Mean - SD, ymax = Mean + SD), 
+  geom_errorbar(aes(ymin = Mean - SE, ymax = Mean + SE),  # Use SE here
                 width = 0.2, position = position_dodge(0.9)) +
   labs(
     title = '(a)',
@@ -156,95 +163,18 @@ ggplot(data, aes(x = Environment, y = Mean, fill = Size)) + scale_y_continuous(b
 
 #### Interpretation of Results in Figure 1a
 
-Sample Text. Please fill in.
+The results indicated that the means (difference in sexual activity) of the vial group and the cage group were significantly different as indicated by the values (t18 = 5.89, p < 0.001). To the authors this suggested that the difference in male sexual attention towards large and small females was different in vials vs. in cages. Most of the increase in sexual attention was directed towards large females in vials. 
 
-#### Figure 1b: Data Simulation and Analysis
-
-```{r Assay 1: Figure 1b. Data Simulation & Analysis}
-# RNG time! - Let's keep it consistent 
-set.seed(123)
-
-# Number of observations made - 2 females, 3 times a day for 3 days * ten replicates for each arena = 180 observations per environment type.
-N = 180
-
-# Changing the effect sizes to get the same values as the paper
-effect_arena <- 2.0       # Main effect of Arena
-effect_size <- 0.5        # Main effect of Size
-effect_interaction <- 2.0  # Interaction effect
-
-# Data simulation time! - Different means for different groups
-feeding_count <- c(
-  rnorm(N, mean = 6.5, sd = 1), # Large females in vials
-  rnorm(N, mean = 13.5 + effect_arena, sd = 1), # Large females in cages
-  rnorm(N, mean = 10 + effect_size, sd = 1), # Small females in vials
-  rnorm(N, mean = 8.5 + effect_arena + (effect_size * (1 + effect_interaction)), sd = 1) # Small females in cages
-)
-
-# Making sure that FeedingCount is a positive float (can't eat negative amounts!)
-feeding_count <- ifelse(feeding_count <= 0, feeding_count + 0.1, feeding_count)
-
-# Let's make all of this into a data frame - matrix time :(
-data <- data.frame(
-  Arena = factor(rep(c('vial', 'cage'), each = N * 2)),
-  Size = factor(rep(c('large', 'small'), times = N * 2)),
-  FeedingCount = feeding_count
-)
-
-
-model_gaussian <- glm(FeedingCount ~ Arena * Size, data = data, family = gaussian(link = 'log'))
-
-summary(model_gaussian)
-
-# Use lmerTest to get F-statistics and p-values
-anova_result <- anova(model_gaussian, test = "F") 
-
-# Print the results
-print(anova_result)
-
-```
-
-#### Figure 1b: Plot of Results
-
-```{r Assay 1: Figure 1b. Plot}
-
-# Spawning and simulating useful variables to create the plot for Figure 1b
-MeanFeeding_Small<-c(10, 9)
-MeanFeeding_Large<-c(6.5, 13.5)
-EnvironmentType<-c('Vial', 'Cage')
-x <- c(1, 2)
-SD = c(1, 1, 1, 1)
-
-# Creating a plot that is similar to Figure 1b. in the paper
-plot(MeanFeeding_Small, axes = FALSE, xlab= "Mating Arena", ylab="Average Number of Feedings Observed", ylim = c(4, 16), pch = 15, col = '#B6D0E2', type = 'o', lwd = 2, cex = 1.5)
-  axis(2)
-  axis(1, at = seq_along(MeanFeeding_Small), labels = as.character(EnvironmentType), las = 0)
-  lines(c(1, 2), MeanFeeding_Large, col='#F1E3D3', pch = 17, type = 'o', lty = 2, lwd = 2, cex = 1.5)
-  title(main = '(b)')
-
-  # Vertical error bars the good ole fashion way
-  arrows(x0 = x, y0 = MeanFeeding_Small - SD, x1 = x, y1 = MeanFeeding_Small + SD, code = 3, angle = 90, 
-         length = 0.1)
-  arrows(x0 = x, y0 = MeanFeeding_Large - SD, x1 = x, y1 = MeanFeeding_Large + SD, code = 3, angle = 90, 
-         length = 0.1)
-
-  # Creating a legend that labels the female size types with different colours - corresponds to the colours in      the previous graph
-  legend('topleft', inset = 0.05, c('Small', 'Large'), lty = c(1, 2), col =c ('#B6D0E2','#F1E3D3'), 
-         lwd = 2, title = "Female Size")
-
-  # Turn plot outline into a box to make it more cutesy
-  box()
-```
-
-#### Interpretation of Results in Figure 1b
-
-Sample text. Please fill in. 
 
 #### Assay 2
+
+Simulating and analyzing the data from Assay 2 which corresponds to figure 2 of the paper.
 
 #### Figure 2: Data Simulation & Analysis
 
 ```{r Assay 2: Figure 2. Data Simulation & Analysis}
-# Simulated data
+# Simulating the data from Assay 2 of the paper that makes up figure 2. The analysis is the general linear model
+# Simulated data following a normal distribution with an N of 35 matching that found in the paper. Mean is 1 so that it can be adjusted later to match the results of the paper. 
 low.vial <- rnorm(35, 1, 0.1)
 high.vial <- rnorm(35, 1, 0.1)
 low.cage <- rnorm(35, 1, 0.1)
@@ -252,10 +182,10 @@ high.cage <- rnorm(35, 1, 0.1)
 
 # Combine into a single response variable
 response <- c(
-  24 * low.vial + rnorm(35, mean = 0, sd = 0.1),  # Low Vial
-  17 * high.vial + rnorm(35, mean = 0, sd = 0.1), # High Vial
-  30 * low.cage + rnorm(35, mean = 0, sd = 0.1),  # Low Cage
-  28 * high.cage + rnorm(35, mean = 0, sd = 0.1)   # High Cage
+  24 * low.vial + rnorm(35, mean = 0, sd = 0.1),  # Low Vial with adjusted mean to match that found in paper
+  17 * high.vial + rnorm(35, mean = 0, sd = 0.1), # High Vial with adjusted mean to match that found in paper
+  30 * low.cage + rnorm(35, mean = 0, sd = 0.1),  # Low Cage with adjusted mean to match that found in paper
+  28 * high.cage + rnorm(35, mean = 0, sd = 0.1)   # High Cage with adjusted mean to match that found in paper
 )
 
 # Divide data points in groups (low vs high) and type (vial vs cage)
@@ -268,7 +198,7 @@ data <- data.frame(
 # Adjust to ensure proper pairing of group and type
 data$type <- factor(rep(c("Vial", "Vial", "Cage", "Cage"), each = 35))
 
-# Fit the two-way ANOVA model
+# Fit the two-way ANOVA model which shows similar results to the paper with lower fitness with higher male exposure and lower fitness in the vial groups
 anova_model <- aov(response ~ group + type + group:type, data = data)
 
 # Summary of the ANOVA
@@ -278,7 +208,57 @@ summary(anova_model)
 
 #### Figure 2: Plot of Results
 
-Insert plot here. 
+``` {r Assay 2: Figure 2. Plot}
+# Simulated data following a normal distribution with an N of 35 matching that found in the paper. Mean is 1 so that it can be adjusted later to match the results of the paper. 
+low.vial <- rnorm(35, 1, 0.1)
+high.vial <- rnorm(35, 1, 0.1)
+low.cage <- rnorm(35, 1, 0.1)
+high.cage <- rnorm(35, 1, 0.1)
+
+# Combine into a single response variable
+response <- c(
+  24 * low.vial + rnorm(35, mean = 0, sd = 0.1),  # Low Vial with adjusted mean to match that found in paper
+  17 * high.vial + rnorm(35, mean = 0, sd = 0.1), # High Vial with adjusted mean to match that found in paper
+  30 * low.cage + rnorm(35, mean = 0, sd = 0.1),  # Low Cage with adjusted mean to match that found in paper
+  28 * high.cage + rnorm(35, mean = 0, sd = 0.1)    # High Cage with adjusted mean to match that found in paper
+)
+
+# Divide data points in groups (low vs high) and type (vial vs cage) so that they can be ordered on the plot later
+data <- data.frame(
+  response = response,
+  group = factor(rep(c("Low", "High", "Low", "High"), each = 35)),
+  type = factor(rep(c("Vial", "Vial", "Cage", "Cage"), each = 35), levels = c("Vial", "Cage")) # Specify the order of levels
+)
+
+# Fit the two-way ANOVA model
+anova_model <- aov(response ~ group + type + group:type, data = data)
+
+# Summary of the ANOVA
+summary(anova_model)
+
+# Calculate means and standard errors to be plotted
+data_summary <- aggregate(response ~ group + type, data = data, FUN = function(x) c(mean = mean(x), se = sd(x)/sqrt(length(x))))
+data_summary <- do.call(data.frame, data_summary)
+
+# Create the interaction plot with error bars matching that found in figure 2 of the paper
+interaction.plot(data_summary$type, data_summary$group, data_summary$response.mean, 
+                 type = "b", # "b" for both lines and points
+                 pch = c(1,16), # Different point symbols
+                 col = c("red","blue"), # Different colors for lines and points
+                 xlab = "Mating Arena (Vial/Cage)", 
+                 ylab = "'Total' Adult Fitness",
+                 trace.label = "Male Exposure",
+                 main = "Interaction of Mating Arena on Adult Fitness",
+                 ylim = c(min(data_summary$response.mean - 2*data_summary$response.se), max(data_summary$response.mean + 2*data_summary$response.se))) # Adjust ylim to accommodate error bars
+
+# Error bars that match the standard error of 1 found in the paper's error bars. 
+arrows(x0 = as.numeric(data_summary$type), # Create error bars using the arrow function in r
+       y0 = data_summary$response.mean - data_summary$response.se, # minus 1 se
+       x1 = as.numeric(data_summary$type), 
+       y1 = data_summary$response.mean + data_summary$response.se, # plus 1 se
+       length = 0.05, angle = 90, code = 3)
+
+```
 
 #### Interpretation of Results in Figure 2 
 
